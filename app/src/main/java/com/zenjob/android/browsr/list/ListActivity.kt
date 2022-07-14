@@ -3,6 +3,7 @@ package com.zenjob.android.browsr.list
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.moshi.Moshi
@@ -86,9 +87,13 @@ class ListActivity : AppCompatActivity(), MovieListAdapter.OnItemClickListener {
         retrofit.create(TMDBApi::class.java).getPopularTvShows()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { paginatedList ->
-                mAdapter.submitList(paginatedList.results)
+            .subscribe (
+                { paginatedList ->
+                    mAdapter.submitList(paginatedList.results)
+                },{
+                   Toast.makeText(this,"Error Occurred",Toast.LENGTH_SHORT).show()
             }
+            )
     }
 
 }
