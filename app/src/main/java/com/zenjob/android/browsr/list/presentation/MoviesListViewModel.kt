@@ -1,6 +1,7 @@
-package com.zenjob.android.browsr.list
+package com.zenjob.android.browsr.list.presentation
 
 import androidx.lifecycle.MutableLiveData
+import com.zenjob.android.browsr.list.domain.FetchingMoviesListUseCase
 
 class MoviesListViewModel(private val fetchingMoviesListUseCase: FetchingMoviesListUseCase) {
 

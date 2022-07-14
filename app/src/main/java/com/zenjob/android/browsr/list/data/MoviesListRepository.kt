@@ -1,4 +1,4 @@
-package com.zenjob.android.browsr.list
+package com.zenjob.android.browsr.list.data
 
 class MoviesListRepository(val list: List<String>? = emptyList()) {
     fun fetchMoviesList(): Result<List<String>> {

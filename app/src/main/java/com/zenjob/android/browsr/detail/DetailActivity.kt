@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.zenjob.android.browsr.R
-import com.zenjob.android.browsr.data.Movie
 
 
 class DetailActivity : AppCompatActivity() {
@@ -18,15 +17,15 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        val movie = if (intent.hasExtra("movie")) intent.getSerializableExtra("movie") as Movie else null
-
-        if(movie == null) return
-
-        titleTv.text = movie.title
-        releaseDateTv.text =
-            android.text.format.DateFormat.format("yyyy", movie.releaseDate)
-        ratingTv.text = "${movie.voteAverage ?: 0}"
-        descriptionTv.text = movie.overview
+//        val movie = if (intent.hasExtra("movie")) intent.getSerializableExtra("movie") as Movie else null
+//
+//        if(movie == null) return
+//
+//        titleTv.text = movie.title
+//        releaseDateTv.text =
+//            android.text.format.DateFormat.format("yyyy", movie.releaseDate)
+//        ratingTv.text = "${movie.voteAverage ?: 0}"
+//        descriptionTv.text = movie.overview
     }
 
 }

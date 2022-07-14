@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="13dp"
-    tools:context=".list.ListActivity">
+    tools:context=".list.presentation.ListActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

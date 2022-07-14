@@ -1,13 +1,13 @@
-package com.zenjob.android.browsr
+package com.zenjob.android.browsr.list
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.google.common.truth.Truth.assertThat
-import com.zenjob.android.browsr.list.FetchingMoviesListUseCase
-import com.zenjob.android.browsr.list.MoviesListRepository
-import com.zenjob.android.browsr.list.MoviesListViewModel
+import com.zenjob.android.browsr.list.domain.FetchingMoviesListUseCase
+import com.zenjob.android.browsr.list.data.MoviesListRepository
+import com.zenjob.android.browsr.list.presentation.MoviesListViewModel
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

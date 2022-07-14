@@ -1,7 +1,8 @@
-package com.zenjob.android.browsr
+package com.zenjob.android.browsr.list
 
 import com.google.common.truth.Truth.assertThat
-import com.zenjob.android.browsr.list.MoviesListRepository
+import com.zenjob.android.browsr.BaseTest
+import com.zenjob.android.browsr.list.data.MoviesListRepository
 import org.junit.Before
 import org.junit.Test
 /*
@@ -34,4 +35,5 @@ class MoviesListRepositoryShould : BaseTest(){
         val repo = MoviesListRepository(null)
         assertThat(repo.fetchMoviesList().isFailure).isTrue()
     }
+
 }
