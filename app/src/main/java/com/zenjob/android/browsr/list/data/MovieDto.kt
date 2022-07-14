@@ -8,7 +8,7 @@ data class MovieDto(
     val imdbId: String?,
     val overview: String?,
     val title: String,
-    val release_date: Date?,
+    val release_date: String?,
     val vote_average: Float?,
     val poster_path:String?
 )

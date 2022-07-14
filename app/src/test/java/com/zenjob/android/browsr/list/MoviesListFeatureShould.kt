@@ -7,6 +7,7 @@ import androidx.lifecycle.LifecycleRegistry
 import com.google.common.truth.Truth.assertThat
 import com.zenjob.android.browsr.list.domain.FetchingMoviesListUseCase
 import com.zenjob.android.browsr.list.data.MoviesListRepository
+import com.zenjob.android.browsr.list.domain.MoviesListMapper
 import com.zenjob.android.browsr.list.presentation.MoviesListViewModel
 import org.junit.Before
 import org.junit.Rule
@@ -21,7 +22,8 @@ class MoviesListFeatureShould {
 
    @Before
    fun setup(){
-       val fetchMoviesListFeatureRepository = MoviesListRepository()
+       val mapper = MoviesListMapper()
+       val fetchMoviesListFeatureRepository = MoviesListRepository(mapper)
        val fetchingMoviesListUseCase = FetchingMoviesListUseCase(fetchMoviesListFeatureRepository)
        val moviesListViewModel = MoviesListViewModel(fetchingMoviesListUseCase)
        uiController = MovieListingSpyUiController().apply { viewModel = moviesListViewModel }

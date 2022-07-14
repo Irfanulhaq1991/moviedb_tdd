@@ -6,7 +6,7 @@ import java.util.*
 
 data class MovieDomainModel(
     val id: Long,
-    val overview: String?,
+    val overview: String,
     val title: String,
     val imageUrl:String,
     private val releaseDate: String

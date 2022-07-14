@@ -2,7 +2,13 @@ package com.zenjob.android.browsr.list
 
 import com.google.common.truth.Truth.assertThat
 import com.zenjob.android.browsr.BaseTest
+import com.zenjob.android.browsr.list.MoviesDummyData.provideDomainModelsList
+import com.zenjob.android.browsr.list.MoviesDummyData.provideDtoList
 import com.zenjob.android.browsr.list.data.MoviesListRepository
+import com.zenjob.android.browsr.list.domain.MoviesListMapper
+import com.zenjob.android.browsr.list.domain.model.MovieDomainModel
+import io.mockk.every
+import io.mockk.impl.annotations.MockK
 import org.junit.Before
 import org.junit.Test
 /*
@@ -12,6 +18,8 @@ import org.junit.Test
  */
 
 class MoviesListRepositoryShould : BaseTest(){
+    @MockK
+    private lateinit var mapper: MoviesListMapper
 
     @Before
     override fun setUp() {
@@ -20,20 +28,25 @@ class MoviesListRepositoryShould : BaseTest(){
 
     @Test
     fun returnEmptyDomainMovieList(){
-        val repo = MoviesListRepository()
-        assertThat(repo.fetchMoviesList()).isEqualTo(Result.success(emptyList<String>()))
+        val repo = MoviesListRepository(mapper)
+        every { mapper.map(any()) } answers { provideDomainModelsList()}
+        assertThat(repo.fetchMoviesList()).isEqualTo(Result.success(emptyList<MovieDomainModel>()))
     }
 
     @Test
     fun returnDomainMovieList(){
-        val repo = MoviesListRepository(listOf("1","2","3"))
-        assertThat(repo.fetchMoviesList()).isEqualTo(Result.success(listOf("1","2","3")))
+
+        val repo = MoviesListRepository(mapper,provideDtoList())
+        every { mapper.map(any()) } answers { provideDomainModelsList()}
+        assertThat(repo.fetchMoviesList()).isEqualTo(Result.success(provideDomainModelsList()))
     }
 
     @Test
     fun returnFailure(){
-        val repo = MoviesListRepository(null)
+
+        val repo = MoviesListRepository(mapper, null)
         assertThat(repo.fetchMoviesList().isFailure).isTrue()
     }
+
 
 }
