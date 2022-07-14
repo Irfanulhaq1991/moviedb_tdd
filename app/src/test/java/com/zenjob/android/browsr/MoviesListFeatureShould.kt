@@ -5,11 +5,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.google.common.truth.Truth.assertThat
+import com.zenjob.android.browsr.list.FetchingMoviesListUseCase
+import com.zenjob.android.browsr.list.MoviesListViewModel
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class MoviesListingFeatureShould {
+class MoviesListFeatureShould {
 
    private lateinit var  uiController: MovieListingSpyUiController
 
@@ -18,7 +20,8 @@ class MoviesListingFeatureShould {
 
    @Before
    fun setup(){
-       val moviesListViewModel = MoviesListViewModel()
+       val fetchingMoviesListUseCase = FetchingMoviesListUseCase()
+       val moviesListViewModel = MoviesListViewModel(fetchingMoviesListUseCase)
        uiController = MovieListingSpyUiController().apply { viewModel = moviesListViewModel }
        uiController.onCreate()
    }
