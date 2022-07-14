@@ -6,6 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.google.common.truth.Truth.assertThat
 import com.zenjob.android.browsr.list.FetchingMoviesListUseCase
+import com.zenjob.android.browsr.list.MoviesListRepository
 import com.zenjob.android.browsr.list.MoviesListViewModel
 import org.junit.Before
 import org.junit.Rule

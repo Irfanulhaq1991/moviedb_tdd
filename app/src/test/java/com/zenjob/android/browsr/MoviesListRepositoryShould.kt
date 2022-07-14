@@ -1,6 +1,7 @@
 package com.zenjob.android.browsr
 
 import com.google.common.truth.Truth.assertThat
+import com.zenjob.android.browsr.list.MoviesListRepository
 import org.junit.Before
 import org.junit.Test
 /*
@@ -22,4 +23,9 @@ class MoviesListRepositoryShould : BaseTest(){
         assertThat(repo.fetchMoviesList()).isEqualTo(Result.success(emptyList<String>()))
     }
 
+    @Test
+    fun returnDomainMovieList(){
+        val repo = MoviesListRepository(listOf("1","2","3"))
+        assertThat(repo.fetchMoviesList()).isEqualTo(Result.success(listOf("1","2","3")))
+    }
 }

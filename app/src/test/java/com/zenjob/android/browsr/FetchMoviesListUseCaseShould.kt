@@ -1,6 +1,7 @@
 package com.zenjob.android.browsr
 
 import com.zenjob.android.browsr.list.FetchingMoviesListUseCase
+import com.zenjob.android.browsr.list.MoviesListRepository
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import org.junit.Before
