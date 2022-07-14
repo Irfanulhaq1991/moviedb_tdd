@@ -1,8 +1,8 @@
 package com.zenjob.android.browsr
 
-class MoviesListRepository {
-    fun fetchMoviesList() {
-        TODO("Not yet implemented")
+class MoviesListRepository() {
+    fun fetchMoviesList(): Result<List<String>> {
+       return Result.success(emptyList<String>())
     }
 
 }
