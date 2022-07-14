@@ -1,8 +1,10 @@
 package com.zenjob.android.browsr.list
 
-class FetchingMoviesListUseCase {
+import com.zenjob.android.browsr.MoviesListRepository
+
+class FetchingMoviesListUseCase(private val repository: MoviesListRepository) {
     fun fetchMoviesList() {
-        TODO("Not yet implemented")
+        repository.fetchMoviesList()
     }
 
 }

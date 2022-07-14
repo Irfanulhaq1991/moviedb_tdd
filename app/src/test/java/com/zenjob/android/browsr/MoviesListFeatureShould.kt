@@ -20,7 +20,8 @@ class MoviesListFeatureShould {
 
    @Before
    fun setup(){
-       val fetchingMoviesListUseCase = FetchingMoviesListUseCase()
+       val fetchMoviesListFeatureRepository = MoviesListRepository()
+       val fetchingMoviesListUseCase = FetchingMoviesListUseCase(fetchMoviesListFeatureRepository)
        val moviesListViewModel = MoviesListViewModel(fetchingMoviesListUseCase)
        uiController = MovieListingSpyUiController().apply { viewModel = moviesListViewModel }
        uiController.onCreate()

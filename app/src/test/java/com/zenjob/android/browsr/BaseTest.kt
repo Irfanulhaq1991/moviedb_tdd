@@ -3,7 +3,7 @@ package com.zenjob.android.browsr
 import io.mockk.MockKAnnotations
 
 open class BaseTest {
-   open fun setup() {
+   open fun setUp() {
     MockKAnnotations.init(this, relaxUnitFun = true)
    }
 }

@@ -2,13 +2,9 @@ package com.zenjob.android.browsr
 
 import com.zenjob.android.browsr.list.FetchingMoviesListUseCase
 import com.zenjob.android.browsr.list.MoviesListViewModel
-import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
-import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
-import junit.runner.BaseTestRunner
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 class MoviesListViewModelShould:BaseTest() {
@@ -19,8 +15,8 @@ class MoviesListViewModelShould:BaseTest() {
     private lateinit var viewModel: MoviesListViewModel
 
     @Before
-    override fun setup(){
-        super.setup()
+    override fun setUp(){
+        super.setUp()
         viewModel = MoviesListViewModel(fetchingMoviesListUseCase)
     }
     @Test
