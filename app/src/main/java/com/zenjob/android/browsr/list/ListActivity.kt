@@ -13,6 +13,7 @@ import com.zenjob.android.browsr.data.DateJsonAdapter
 import com.zenjob.android.browsr.data.Movie
 import com.zenjob.android.browsr.data.TMDBApi
 import com.zenjob.android.browsr.detail.DetailActivity
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -84,6 +85,7 @@ class ListActivity : AppCompatActivity(), MovieListAdapter.OnItemClickListener {
 
         retrofit.create(TMDBApi::class.java).getPopularTvShows()
             .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe { paginatedList ->
                 mAdapter.submitList(paginatedList.results)
             }
