@@ -28,4 +28,10 @@ class MoviesListRepositoryShould : BaseTest(){
         val repo = MoviesListRepository(listOf("1","2","3"))
         assertThat(repo.fetchMoviesList()).isEqualTo(Result.success(listOf("1","2","3")))
     }
+
+    @Test
+    fun returnFailure(){
+        val repo = MoviesListRepository(null)
+        assertThat(repo.fetchMoviesList().isFailure).isTrue()
+    }
 }
