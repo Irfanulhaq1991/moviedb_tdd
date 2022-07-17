@@ -6,7 +6,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.google.common.truth.Truth.assertThat
 import com.zenjob.android.browsr.list.domain.FetchingMoviesListUseCase
-import com.zenjob.android.browsr.list.data.MoviesListRepository
+import com.zenjob.android.browsr.list.data.MoviesRepository
+import com.zenjob.android.browsr.list.data.RemoteDataSource
 import com.zenjob.android.browsr.list.domain.MoviesListMapper
 import com.zenjob.android.browsr.list.presentation.MoviesListViewModel
 import org.junit.Before
@@ -22,8 +23,9 @@ class MoviesListFeatureShould {
 
    @Before
    fun setup(){
+       val remoteDataSource = RemoteDataSource()
        val mapper = MoviesListMapper()
-       val fetchMoviesListFeatureRepository = MoviesListRepository(mapper)
+       val fetchMoviesListFeatureRepository = MoviesRepository(mapper,remoteDataSource)
        val fetchingMoviesListUseCase = FetchingMoviesListUseCase(fetchMoviesListFeatureRepository)
        val moviesListViewModel = MoviesListViewModel(fetchingMoviesListUseCase)
        uiController = MovieListingSpyUiController().apply { viewModel = moviesListViewModel }

@@ -8,5 +8,4 @@ class MoviesListMapper: Mapper<List<MovieDto>, List<Movie>> {
    override fun map(input: List<MovieDto>): List<Movie> {
         return input.map { Movie(it.id,it.overview?:"",it.title,it.poster_path?:"",it.release_date?:"") }
     }
-
 }

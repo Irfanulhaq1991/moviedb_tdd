@@ -4,47 +4,48 @@ import com.google.common.truth.Truth.assertThat
 import com.zenjob.android.browsr.BaseTest
 import com.zenjob.android.browsr.list.MoviesDummyData.provideDomainModelsList
 import com.zenjob.android.browsr.list.MoviesDummyData.provideDtoList
-import com.zenjob.android.browsr.list.data.MoviesListRepository
+import com.zenjob.android.browsr.list.data.MoviesRepository
+import com.zenjob.android.browsr.list.data.RemoteDataSource
 import com.zenjob.android.browsr.list.domain.MoviesListMapper
 import com.zenjob.android.browsr.list.domain.model.Movie
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import org.junit.Before
 import org.junit.Test
-/*
-  - When request is successful and no data is returned then do not map
-  - When request is successful and data is returned then Mapping data to Domain models and return it
-  - When error is returned it should be propagated up
- */
+import java.io.IOException
 
-class MoviesListRepositoryShould : BaseTest(){
-    @MockK
+class MoviesListRepositoryShould : BaseTest() {
+
     private lateinit var mapper: MoviesListMapper
+
+    @MockK
+    private lateinit var remoteDataSource: RemoteDataSource
+
+    private lateinit var repo:MoviesRepository
 
     @Before
     override fun setUp() {
         super.setUp()
+        mapper = MoviesListMapper()
+        repo = MoviesRepository(mapper,remoteDataSource)
     }
 
     @Test
-    fun returnEmptyDomainMovieList(){
-        val repo = MoviesListRepository(mapper)
-        every { mapper.map(any()) } answers { provideDomainModelsList()}
+    fun returnEmptyDomainMovieList() {
+        every { remoteDataSource.fetch() } answers { Result.success(emptyList())}
         assertThat(repo.fetchMoviesList()).isEqualTo(Result.success(emptyList<Movie>()))
     }
 
     @Test
-    fun returnDomainMovieList(){
-
-        val repo = MoviesListRepository(mapper,provideDtoList())
-        every { mapper.map(any()) } answers { provideDomainModelsList()}
+    fun returnDomainMovieList() {
+        every { remoteDataSource.fetch() } answers { Result.success(provideDtoList())}
         assertThat(repo.fetchMoviesList()).isEqualTo(Result.success(provideDomainModelsList()))
     }
 
     @Test
-    fun returnFailure(){
+    fun returnFailure() {
 
-        val repo = MoviesListRepository(mapper, null)
+        every { remoteDataSource.fetch() } answers { Result.failure(IOException("No Internet"))}
         assertThat(repo.fetchMoviesList().isFailure).isTrue()
     }
 
