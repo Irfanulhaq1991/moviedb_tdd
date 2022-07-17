@@ -15,6 +15,7 @@ class MoviesListMapperShould {
         val output = mapper.map(input)
         assertThat(output.size).isEqualTo(input.size)
     }
+
     @Test
     fun returnListOfDomainModels(){
         val input = MoviesDummyData.provideDtoList()

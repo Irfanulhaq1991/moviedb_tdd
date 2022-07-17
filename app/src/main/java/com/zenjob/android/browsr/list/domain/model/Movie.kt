@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import java.io.Serializable
 import java.util.*
 
-data class MovieDomainModel(
+data class Movie(
     val id: Long,
     val overview: String,
     val title: String,

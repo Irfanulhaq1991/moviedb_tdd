@@ -1,15 +1,15 @@
 package com.zenjob.android.browsr.list
 
 import com.zenjob.android.browsr.list.data.MovieDto
-import com.zenjob.android.browsr.list.domain.model.MovieDomainModel
+import com.zenjob.android.browsr.list.domain.model.Movie
 
 object MoviesDummyData {
 
-    fun provideDomainModelsList(): List<MovieDomainModel> {
+    fun provideDomainModelsList(): List<Movie> {
         return listOf(
-            MovieDomainModel(0, "", "", "", ""),
-            MovieDomainModel(1, "c", "e", "", ""),
-            MovieDomainModel(2, "d", "f", "", ""),
+            Movie(0, "", "", "", ""),
+            Movie(1, "c", "e", "", ""),
+            Movie(2, "d", "f", "", ""),
         )
     }
 

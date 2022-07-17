@@ -1,11 +1,12 @@
 package com.zenjob.android.browsr.list.domain
 
+import com.zenjob.android.browsr.Mapper
 import com.zenjob.android.browsr.list.data.MovieDto
-import com.zenjob.android.browsr.list.domain.model.MovieDomainModel
+import com.zenjob.android.browsr.list.domain.model.Movie
 
-class MoviesListMapper{
-    fun map(input: List<MovieDto>): List<MovieDomainModel> {
-        return input.map { MovieDomainModel(it.id,it.overview?:"",it.title,it.poster_path?:"",it.release_date?:"") }
+class MoviesListMapper: Mapper<List<MovieDto>, List<Movie>> {
+   override fun map(input: List<MovieDto>): List<Movie> {
+        return input.map { Movie(it.id,it.overview?:"",it.title,it.poster_path?:"",it.release_date?:"") }
     }
 
 }

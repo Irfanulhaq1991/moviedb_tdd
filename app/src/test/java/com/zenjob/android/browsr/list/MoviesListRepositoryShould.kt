@@ -6,7 +6,7 @@ import com.zenjob.android.browsr.list.MoviesDummyData.provideDomainModelsList
 import com.zenjob.android.browsr.list.MoviesDummyData.provideDtoList
 import com.zenjob.android.browsr.list.data.MoviesListRepository
 import com.zenjob.android.browsr.list.domain.MoviesListMapper
-import com.zenjob.android.browsr.list.domain.model.MovieDomainModel
+import com.zenjob.android.browsr.list.domain.model.Movie
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import org.junit.Before
@@ -30,7 +30,7 @@ class MoviesListRepositoryShould : BaseTest(){
     fun returnEmptyDomainMovieList(){
         val repo = MoviesListRepository(mapper)
         every { mapper.map(any()) } answers { provideDomainModelsList()}
-        assertThat(repo.fetchMoviesList()).isEqualTo(Result.success(emptyList<MovieDomainModel>()))
+        assertThat(repo.fetchMoviesList()).isEqualTo(Result.success(emptyList<Movie>()))
     }
 
     @Test
