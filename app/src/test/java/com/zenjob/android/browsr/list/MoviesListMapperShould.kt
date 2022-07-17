@@ -2,7 +2,6 @@ package com.zenjob.android.browsr.list
 
 import com.google.common.truth.Truth.assertThat
 import com.zenjob.android.browsr.list.domain.MoviesListMapper
-import junit.framework.TestCase
 import org.junit.Test
 
 class MoviesListMapperShould {
@@ -10,7 +9,7 @@ class MoviesListMapperShould {
 
     @Test
     fun returnListOfSizeInput(){
-        val input = MoviesDummyData.provideDtoList()
+        val input = MoviesDummyData.MoviesDtosList()
         val mapper = MoviesListMapper()
         val output = mapper.map(input)
         assertThat(output.size).isEqualTo(input.size)
@@ -18,7 +17,7 @@ class MoviesListMapperShould {
 
     @Test
     fun returnListOfDomainModels(){
-        val input = MoviesDummyData.provideDtoList()
+        val input = MoviesDummyData.MoviesDtosList()
         val expected = MoviesDummyData.provideDomainModelsList()
         val mapper = MoviesListMapper()
         val output = mapper.map(input)

@@ -5,25 +5,34 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.google.common.truth.Truth.assertThat
+import com.zenjob.android.browsr.list.data.MovieDto
+import com.zenjob.android.browsr.list.data.MovieRemoteApi
 import com.zenjob.android.browsr.list.domain.FetchingMoviesListUseCase
 import com.zenjob.android.browsr.list.data.MoviesRepository
-import com.zenjob.android.browsr.list.data.RemoteMoviesListDataSource
+import com.zenjob.android.browsr.list.data.MoviesListDataSource
 import com.zenjob.android.browsr.list.domain.MoviesListMapper
 import com.zenjob.android.browsr.list.presentation.MoviesListViewModel
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import retrofit2.Response
 
 class MoviesListFeatureShould {
 
    private lateinit var  uiController: MovieListingSpyUiController
+   private val moviesRemoteApi = object : MovieRemoteApi {
+       override fun fetchMovies(): Response<List<MovieDto>> {
+           return Response.success(MoviesDummyData.MoviesDtosList())
+       }
+   }
+
 
    @get:Rule
    val rule = InstantTaskExecutorRule()
 
    @Before
    fun setup(){
-       val remoteDataSource = RemoteMoviesListDataSource()
+       val remoteDataSource = MoviesListDataSource(moviesRemoteApi)
        val mapper = MoviesListMapper()
        val fetchMoviesListFeatureRepository = MoviesRepository(mapper,remoteDataSource)
        val fetchingMoviesListUseCase = FetchingMoviesListUseCase(fetchMoviesListFeatureRepository)

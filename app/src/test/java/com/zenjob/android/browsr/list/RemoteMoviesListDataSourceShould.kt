@@ -1,43 +1,71 @@
 package com.zenjob.android.browsr.list
 
 import com.google.common.truth.Truth.assertThat
+import com.zenjob.android.browsr.BaseTest
+import com.zenjob.android.browsr.list.MoviesDummyData.MoviesDtosList
 import com.zenjob.android.browsr.list.data.MovieDto
+import com.zenjob.android.browsr.list.data.MovieRemoteApi
 import com.zenjob.android.browsr.list.data.RemoteMoviesListDataSource
 import org.junit.Test
+import retrofit2.Response
+import java.io.IOException
 
-class RemoteMoviesListDataSourceShould {
+class RemoteMoviesListDataSourceShould : BaseTest() {
 
     @Test
     fun returnEmptyMoviesDtoList() {
-
-        assertThat(
-            RemoteMoviesListDataSource()
-                .fetchMoviesList()
-        )
+        val dataSource = withNoData()
+        val result = dataSource.fetchMoviesList()
+        assertThat(result)
             .isEqualTo(Result.success(emptyList<MovieDto>()))
 
     }
 
     @Test
     fun returnMoviesDtoList() {
-        assertThat(
-            RemoteMoviesListDataSource(MoviesDummyData.provideDtoList())
-                .fetchMoviesList()
-        )
-            .isEqualTo(Result.success(MoviesDummyData.provideDtoList()))
+        val dataSource = withData(MoviesDtosList())
+        val result = dataSource.fetchMoviesList()
+        assertThat(result)
+            .isEqualTo(Result.success(MoviesDtosList()))
     }
+
 
     @Test
     fun returnErrorIfExceptionIsThrown() {
-       assertThat(isFailureWithMessage(
-           RemoteMoviesListDataSource(null)
-           .fetchMoviesList(),"No Internet")).isTrue()
+        val dataSource = withError(IOException("No Internet"))
+        val result = dataSource.fetchMoviesList()
+        assertThat(isFailureWithMessage(result, "No Internet")).isTrue()
 
     }
 
-   private fun <T> isFailureWithMessage(result: Result<T>, message: String): Boolean {
-        var errorMessage: String? = "#-#"
-        result.onFailure { errorMessage = it.message }
-        return result.isFailure && errorMessage == message
+
+
+
+    private fun withNoData(): RemoteMoviesListDataSource {
+       val api =  object : MovieRemoteApi {
+            override fun fetchMovies(): Response<List<MovieDto>> {
+                return Response.success(emptyList())
+            }
+        }
+        return RemoteMoviesListDataSource(api)
     }
+
+    private fun withData(provideDtoList: List<MovieDto>): RemoteMoviesListDataSource {
+        val api = object : MovieRemoteApi {
+            override fun fetchMovies(): Response<List<MovieDto>> {
+                return Response.success(provideDtoList)
+            }
+        }
+        return RemoteMoviesListDataSource(api)
+    }
+
+    private fun withError(throwable: Throwable): RemoteMoviesListDataSource {
+        val api =  object : MovieRemoteApi {
+            override fun fetchMovies(): Response<List<MovieDto>> {
+                throw throwable
+            }
+        }
+        return RemoteMoviesListDataSource(api)
+    }
+
 }
