@@ -1,10 +1,11 @@
 package com.zenjob.android.browsr.list.domain
 
 import com.zenjob.android.browsr.list.data.MoviesRepository
+import com.zenjob.android.browsr.list.domain.model.Movie
 
 class FetchingMoviesListUseCase(private val repository: MoviesRepository) {
-    fun fetchMoviesList() {
-        repository.fetchMoviesList()
+    fun fetchMoviesList(): Result<List<Movie>> {
+        return repository.fetchMoviesList()
     }
 
 }

@@ -5,7 +5,7 @@ import com.zenjob.android.browsr.list.domain.model.Movie
 
 class MoviesRepository(
     private val mapper: Mapper<List<MovieDto>,List<Movie>>,
-    private val remoteMoviesListDataSource: MoviesListDataSource,
+    private val remoteMoviesListDataSource: IMoviesListDataSource,
 ) {
     fun fetchMoviesList(): Result<List<Movie>> {
         val result = remoteMoviesListDataSource.fetchMoviesList()
