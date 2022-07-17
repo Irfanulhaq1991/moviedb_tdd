@@ -1,8 +1,19 @@
 package com.zenjob.android.browsr.list.data
 
-class RemoteMoviesListDataSource(val movieDtoList: List<MovieDto> = emptyList()) {
+import java.io.IOException
+
+class RemoteMoviesListDataSource(private val movieDtoList: List<MovieDto>? = emptyList()) {
     fun fetchMoviesList():Result<List<MovieDto>> {
-        return Result.success(movieDtoList)
+       try {
+        if(movieDtoList == null){
+            throw IOException()
+        }else{
+            return Result.success(movieDtoList!!)
+        }
+       }catch (e:IOException){
+           return Result.failure(Throwable("No Internet"))
+       }
+
     }
 
 }
