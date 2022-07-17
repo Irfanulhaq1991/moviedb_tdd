@@ -2,13 +2,14 @@ package com.zenjob.android.browsr.list
 
 import com.google.common.truth.Truth.assertThat
 import com.zenjob.android.browsr.list.domain.MoviesListMapper
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
 class MoviesListMapperShould {
 
 
     @Test
-    fun returnListOfSizeInput(){
+    fun returnListOfSizeInput() = runTest{
         val input = MoviesDummyData.MoviesDtosList()
         val mapper = MoviesListMapper()
         val output = mapper.map(input)
@@ -16,7 +17,7 @@ class MoviesListMapperShould {
     }
 
     @Test
-    fun returnListOfDomainModels(){
+    fun returnListOfDomainModels() = runTest{
         val input = MoviesDummyData.MoviesDtosList()
         val expected = MoviesDummyData.provideDomainModelsList()
         val mapper = MoviesListMapper()

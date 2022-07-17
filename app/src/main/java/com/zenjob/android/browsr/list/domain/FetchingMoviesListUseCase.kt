@@ -4,7 +4,7 @@ import com.zenjob.android.browsr.list.data.MoviesRepository
 import com.zenjob.android.browsr.list.domain.model.Movie
 
 class FetchingMoviesListUseCase(private val repository: MoviesRepository) {
-    fun fetchMoviesList(): Result<List<Movie>> {
+    suspend fun fetchMoviesList(): Result<List<Movie>> {
         return repository.fetchMoviesList()
     }
 

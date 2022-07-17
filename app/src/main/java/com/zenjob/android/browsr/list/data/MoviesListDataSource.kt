@@ -4,7 +4,7 @@ import java.io.IOException
 
 class RemoteMoviesListDataSource(private val moviesRemoteApi:MovieRemoteApi) :
     IMoviesListDataSource {
-   override fun fetchMoviesList():Result<List<MovieDto>> {
+   override suspend fun fetchMoviesList():Result<List<MovieDto>> {
         return try {
             val  response = moviesRemoteApi.fetchMovies()
             if(response.isSuccessful){

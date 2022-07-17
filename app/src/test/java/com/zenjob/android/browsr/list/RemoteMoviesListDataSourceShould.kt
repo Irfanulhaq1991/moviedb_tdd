@@ -10,7 +10,7 @@ class RemoteMoviesListDataSourceShould:MoviesListDataSourceContractTest() {
 
    override fun withNoData(): RemoteMoviesListDataSource {
        val api =  object : MovieRemoteApi {
-            override fun fetchMovies(): Response<List<MovieDto>> {
+            override suspend fun fetchMovies(): Response<List<MovieDto>> {
                 return Response.success(emptyList())
             }
         }
@@ -19,7 +19,7 @@ class RemoteMoviesListDataSourceShould:MoviesListDataSourceContractTest() {
 
     override fun withData(provideDtoList: List<MovieDto>): RemoteMoviesListDataSource {
         val api = object : MovieRemoteApi {
-            override fun fetchMovies(): Response<List<MovieDto>> {
+            override suspend fun fetchMovies(): Response<List<MovieDto>> {
                 return Response.success(provideDtoList)
             }
         }
@@ -28,7 +28,7 @@ class RemoteMoviesListDataSourceShould:MoviesListDataSourceContractTest() {
 
     override fun withError(throwable: Throwable): RemoteMoviesListDataSource {
         val api =  object : MovieRemoteApi {
-            override fun fetchMovies(): Response<List<MovieDto>> {
+            override suspend fun fetchMovies(): Response<List<MovieDto>> {
                 throw throwable
             }
         }

@@ -7,6 +7,7 @@ import com.zenjob.android.browsr.list.data.IMoviesListDataSource
 import com.zenjob.android.browsr.list.data.MovieDto
 import com.zenjob.android.browsr.list.data.MovieRemoteApi
 import com.zenjob.android.browsr.list.data.RemoteMoviesListDataSource
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import retrofit2.Response
 import java.io.IOException
@@ -15,7 +16,7 @@ import java.io.IOException
 abstract class MoviesListDataSourceContractTest : BaseTest() {
 
     @Test
-    fun returnEmptyMoviesDtoList() {
+    fun returnEmptyMoviesDtoList() = runTest{
         val dataSource = withNoData()
         val result = dataSource.fetchMoviesList()
         assertThat(result)
@@ -24,7 +25,7 @@ abstract class MoviesListDataSourceContractTest : BaseTest() {
     }
 
     @Test
-    fun returnMoviesDtoList() {
+    fun returnMoviesDtoList() = runTest {
         val dataSource = withData(MoviesDtosList())
         val result = dataSource.fetchMoviesList()
         assertThat(result)
@@ -33,7 +34,7 @@ abstract class MoviesListDataSourceContractTest : BaseTest() {
 
 
     @Test
-    fun returnErrorIfExceptionIsThrown() {
+    fun returnErrorIfExceptionIsThrown()= runTest {
         val dataSource = withError(IOException())
         val result = dataSource.fetchMoviesList()
         assertThat(isFailureWithMessage(result, "No Internet")).isTrue()

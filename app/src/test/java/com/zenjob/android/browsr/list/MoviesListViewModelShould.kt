@@ -2,20 +2,27 @@ package com.zenjob.android.browsr.list
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.zenjob.android.browsr.BaseTest
+import com.zenjob.android.browsr.CoroutineTestRule
 import com.zenjob.android.browsr.list.domain.FetchingMoviesListUseCase
 import com.zenjob.android.browsr.list.domain.model.Movie
 import com.zenjob.android.browsr.list.presentation.MoviesListViewModel
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 class MoviesListViewModelShould: BaseTest() {
     @get:Rule
-    val rule = InstantTaskExecutorRule()
+    val liveDataRule = InstantTaskExecutorRule()
+    @get:Rule
+    val coroutineRul = CoroutineTestRule()
+
     @RelaxedMockK
     lateinit var fetchingMoviesListUseCase: FetchingMoviesListUseCase
 
@@ -27,9 +34,9 @@ class MoviesListViewModelShould: BaseTest() {
         viewModel = MoviesListViewModel(fetchingMoviesListUseCase)
     }
     @Test
-    fun fetchMoviesList(){
-        every {fetchingMoviesListUseCase.fetchMoviesList()  } answers { Result.success(emptyList())}
+    fun fetchMoviesList()= runTest{
+        coEvery {fetchingMoviesListUseCase.fetchMoviesList()  } answers { Result.success(emptyList())}
         viewModel.fetchMoviesList()
-        verify { fetchingMoviesListUseCase.fetchMoviesList() }
+        coVerify { fetchingMoviesListUseCase.fetchMoviesList() }
     }
 }
