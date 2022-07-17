@@ -1,8 +1,8 @@
 package com.zenjob.android.browsr.list.data
 
-class RemoteMoviesListDataSource {
+class RemoteMoviesListDataSource(val movieDtoList: List<MovieDto> = emptyList()) {
     fun fetchMoviesList():Result<List<MovieDto>> {
-        return Result.success(emptyList())
+        return Result.success(movieDtoList)
     }
 
 }
