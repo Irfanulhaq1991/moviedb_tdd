@@ -13,7 +13,7 @@ class MoviesListMapperShould {
         val input = MoviesDummyData.provideMoviesDtosList()
         val mapper = MoviesListMapper()
         val output = mapper.map(input)
-        assertThat(output.size).isEqualTo(input.size)
+        assertThat(output.movies.size).isEqualTo(input.results.size)
     }
 
     @Test

@@ -28,7 +28,7 @@ class MoviesListFeatureShould {
 
     private lateinit var  uiController: MovieListingSpyUiController
     private val moviesRemoteApi = object : MovieRemoteApi {
-        override suspend fun fetchMovies(): Response<List<MovieDto>> {
+        override suspend fun fetchMovies(): Response<MoviePageDto> {
             return Response.success(MoviesDummyData.provideMoviesDtosList())
         }
     }
@@ -47,7 +47,7 @@ class MoviesListFeatureShould {
 
     @Test
     fun fetchMoviesList(){
-        val actual = listOf(MoviesListUiState(),MoviesListUiState(showLoading = true),MoviesListUiState(MoviesDummyData.provideDomainModelsList()))
+        val actual = listOf(MoviesListUiState(),MoviesListUiState(showLoading = true),MoviesListUiState(MoviesDummyData.provideDomainModelsList().movies))
         uiController.fetchMoviesList()
         val result = uiController.uiStates
         assertThat(result).isEqualTo(actual)

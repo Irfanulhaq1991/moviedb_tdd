@@ -1,26 +1,24 @@
 package com.zenjob.android.browsr.list
 
-import com.zenjob.android.browsr.list.data.IMoviesListDataSource
-import com.zenjob.android.browsr.list.data.MovieDto
-import com.zenjob.android.browsr.list.data.MovieRemoteApi
-import com.zenjob.android.browsr.list.data.RemoteMoviesListDataSource
+import com.zenjob.android.browsr.list.data.*
 import retrofit2.Response
 
 class RemoteMoviesListDataSourceShould:MoviesListDataSourceContractTest() {
 
    override fun withNoData(): RemoteMoviesListDataSource {
        val api =  object : MovieRemoteApi {
-            override suspend fun fetchMovies(): Response<List<MovieDto>> {
-                return Response.success(emptyList())
+            override suspend fun fetchMovies(): Response<MoviePageDto> {
+                return Response.success(MoviePageDto(0,0,0, emptyList()))
             }
         }
         return RemoteMoviesListDataSource(api)
     }
 
-    override fun withData(provideDtoList: List<MovieDto>): RemoteMoviesListDataSource {
+
+    override fun withData(movieRawData: MoviePageDto): IMoviesListDataSource {
         val api = object : MovieRemoteApi {
-            override suspend fun fetchMovies(): Response<List<MovieDto>> {
-                return Response.success(provideDtoList)
+            override suspend fun fetchMovies(): Response<MoviePageDto> {
+                return Response.success(movieRawData)
             }
         }
         return RemoteMoviesListDataSource(api)
@@ -28,7 +26,7 @@ class RemoteMoviesListDataSourceShould:MoviesListDataSourceContractTest() {
 
     override fun withError(throwable: Throwable): RemoteMoviesListDataSource {
         val api =  object : MovieRemoteApi {
-            override suspend fun fetchMovies(): Response<List<MovieDto>> {
+            override suspend fun fetchMovies(): Response<MoviePageDto> {
                 throw throwable
             }
         }

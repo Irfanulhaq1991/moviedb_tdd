@@ -9,9 +9,9 @@ data class Movie(
     val overview: String,
     val title: String,
     val imageUrl:String,
-    private val releaseDate: String
+    val releaseDate: String
 ){
-    fun getReleaseDate():Date{
+    fun formattedReleaseDate():Date{
         return Date()
     }
 }

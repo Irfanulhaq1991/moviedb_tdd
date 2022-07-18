@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface MovieRemoteApi {
     @GET("#")
-    suspend fun fetchMovies():Response<List<MovieDto>>
+    suspend fun fetchMovies():Response<MoviePageDto>
 
 }

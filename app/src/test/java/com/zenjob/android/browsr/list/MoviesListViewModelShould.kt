@@ -35,8 +35,6 @@ class MoviesListViewModelShould: BaseTest() {
     }
     @Test
     fun fetchMoviesList()= runTest{
-
-        coEvery {fetchingMoviesListUseCase.fetchMoviesList()  } answers { Result.success(emptyList())}
         viewModel.fetchMoviesList()
         coVerify { fetchingMoviesListUseCase.fetchMoviesList() }
     }

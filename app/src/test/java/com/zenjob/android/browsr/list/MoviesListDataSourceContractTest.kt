@@ -5,6 +5,7 @@ import com.zenjob.android.browsr.BaseTest
 import com.zenjob.android.browsr.list.MoviesDummyData.provideMoviesDtosList
 import com.zenjob.android.browsr.list.data.IMoviesListDataSource
 import com.zenjob.android.browsr.list.data.MovieDto
+import com.zenjob.android.browsr.list.data.MoviePageDto
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import java.io.IOException
@@ -17,7 +18,7 @@ abstract class MoviesListDataSourceContractTest : BaseTest() {
         val dataSource = withNoData()
         val result = dataSource.fetchMoviesList()
         assertThat(result)
-            .isEqualTo(Result.success(emptyList<MovieDto>()))
+            .isEqualTo(Result.success(MoviePageDto(0,0,0,emptyList())))
 
     }
 
@@ -40,7 +41,7 @@ abstract class MoviesListDataSourceContractTest : BaseTest() {
 
     abstract fun withNoData(): IMoviesListDataSource
 
-    abstract fun withData(provideDtoList: List<MovieDto>): IMoviesListDataSource
+    abstract fun withData(provideDtoList:MoviePageDto): IMoviesListDataSource
 
     abstract fun withError(throwable: Throwable): IMoviesListDataSource
 
