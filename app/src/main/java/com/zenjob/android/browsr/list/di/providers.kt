@@ -1,5 +1,7 @@
 package com.zenjob.android.browsr.list.di
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.zenjob.android.browsr.BuildConfig
 import com.zenjob.android.browsr.list.data.MovieRemoteApi
 import okhttp3.Interceptor
@@ -8,16 +10,26 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 
-fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+fun provideMoshiConverter(): MoshiConverterFactory {
+    return MoshiConverterFactory.create(
+        Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+    )
+}
+
+fun provideRetrofit(okHttpClient: OkHttpClient,moshi:MoshiConverterFactory): Retrofit {
     return Retrofit.Builder().baseUrl(BuildConfig.TMDB_URL).client(okHttpClient)
-        .addConverterFactory(MoshiConverterFactory.create()).build()
+        .addConverterFactory(moshi).build()
 }
 
 fun provideOkHttpClient(interceptor: Interceptor): OkHttpClient {
     return OkHttpClient().newBuilder().addInterceptor(interceptor).build()
 }
 
-fun provideForecastApi(retrofit: Retrofit): MovieRemoteApi = retrofit.create(MovieRemoteApi::class.java)
+fun provideForecastApi(retrofit: Retrofit): MovieRemoteApi =
+    retrofit.create(MovieRemoteApi::class.java)
+
 fun provideInterceptor(): Interceptor {
     return Interceptor { chain ->
 

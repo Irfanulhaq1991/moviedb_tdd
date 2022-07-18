@@ -11,6 +11,6 @@ class MoviesListMapper: Mapper<MoviePageDto, Movies> {
 
 
     override suspend fun map(input: MoviePageDto): Movies {
-        return Movies(input.page, input.results.map { Movie(it.id,it.overview?:"",it.title,BuildConfig.TMDB_IMAGE_URL+(it.poster_path?:""),it.release_date?:"") })
+        return Movies(input.page, input.results.map { Movie(it.id,it.overview?:"",it.title,BuildConfig.TMDB_IMAGE_URL+(it.poster_path?:""),it.release_date?:"",it.vote_average?:0f) })
     }
 }

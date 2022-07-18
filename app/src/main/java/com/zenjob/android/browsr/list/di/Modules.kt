@@ -4,7 +4,6 @@ import com.zenjob.android.browsr.common.Mapper
 import com.zenjob.android.browsr.list.data.*
 import com.zenjob.android.browsr.list.domain.FetchingMoviesListUseCase
 import com.zenjob.android.browsr.list.domain.MoviesListMapper
-import com.zenjob.android.browsr.list.domain.model.Movie
 import com.zenjob.android.browsr.list.domain.model.Movies
 import com.zenjob.android.browsr.list.presentation.MoviesListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -26,9 +25,10 @@ val movieListModule = module {
 
 val networkModule = module {
     factory { provideInterceptor()}
+    factory { provideMoshiConverter() }
     factory { provideOkHttpClient(get()) }
     factory { provideForecastApi(get()) }
-    single { provideRetrofit(get()) }
+    single { provideRetrofit(get(),get()) }
 }
 
 

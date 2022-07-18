@@ -1,12 +1,13 @@
 package com.zenjob.android.browsr.list.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.Observer
 import com.irfan.sadaparcel.inventory.ItemLayoutManger
 import com.irfan.sadaparcel.inventory.RcAdaptor
@@ -14,56 +15,46 @@ import com.squareup.picasso.Picasso
 import com.zenjob.android.browsr.R
 import com.zenjob.android.browsr.databinding.ActivityListBinding
 import com.zenjob.android.browsr.databinding.ViewholderMovieItemBinding
-import com.zenjob.android.browsr.list.di.movieListModule
-import com.zenjob.android.browsr.list.di.networkModule
+import com.zenjob.android.browsr.detail.DetailActivity
+import com.zenjob.android.browsr.detail.EXTRA_KEY
 import com.zenjob.android.browsr.list.domain.model.Movie
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.context.startKoin
 
 
 class ListActivity : AppCompatActivity(),
     Observer<MoviesListUiState>, ItemLayoutManger<Movie> {
+
     private val viewModel: MoviesListViewModel by viewModel()
+
     private lateinit var binding: ActivityListBinding
 
     private val adaptor: RcAdaptor<Movie> by lazy {
-        RcAdaptor<Movie>(this).apply { bindRecyclerView(binding.list) }
+        RcAdaptor<Movie>(this)
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView<ActivityListBinding>(this, R.layout.activity_list)
-
-        setupKoin()
-        observeViewModel()
+        adaptor.bindRecyclerView(binding.rcItemList)
+        setup()
         viewModel.fetchMoviesList()
+
     }
 
-    private fun observeViewModel() {
+    private fun setup() {
         viewModel.uiState.observe(this, this)
+
+        binding.swiperefresh.setOnRefreshListener {
+            viewModel.fetchMoviesList()
+        }
     }
 
     override fun onChanged(state: MoviesListUiState) {
-        binding.uiState = state
-        if (state.errorMessage.isNotEmpty()) {
-            viewModel.userMessageShown()
-            return
-        }
+        binding.swiperefresh.isRefreshing = state.showLoading
         adaptor.setItems(state.moviesList)
-    }
-
-    private fun setupKoin() {
-        startKoin {
-            // Koin Android logger
-            androidLogger()
-            //inject Android context
-            androidContext(this@ListActivity)
-            // use modules
-            modules(movieListModule, networkModule)
-        }
+        if (state.errorMessage.isNotEmpty())
+            Toast.makeText(this, state.errorMessage, Toast.LENGTH_SHORT).show()
     }
 
     override fun getLayoutId(position: Int): Int {
@@ -71,15 +62,16 @@ class ListActivity : AppCompatActivity(),
     }
 
     override fun bindView(view: View, position: Int, item: Movie) {
-        val binding = ViewholderMovieItemBinding.bind(view)
+        val binding = DataBindingUtil.bind<ViewholderMovieItemBinding>(view)!!
         binding.movie = item
         binding.root.tag = item
-        binding.root.setOnClickListener{
-            val item = it.tag  as Movie
+        binding.root.setOnClickListener {
+            val movie = it.tag as Movie
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra(EXTRA_KEY, movie)
+            startActivity(intent)
         }
     }
-
-
 }
 
 @BindingAdapter("imageUrl")

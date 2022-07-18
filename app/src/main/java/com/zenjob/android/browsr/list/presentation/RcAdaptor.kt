@@ -8,14 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 class RcAdaptor<T>(private val itemLayoutManger: ItemLayoutManger<T>) :
     RecyclerView.Adapter<RcAdaptor.AppViewHolder<T>>() {
     private var itemList = ArrayList<T>()
-    private var recyclerview: RecyclerView? = null
 
     fun bindRecyclerView(recyclerview: RecyclerView) {
         recyclerview.adapter = this
     }
 
     fun setItems(itemList: List<T>) {
+        this.itemList.clear()
         this.itemList.addAll(itemList)
+        notifyItemMoved(0,itemList.size-1)
     }
 
     fun getItem(position: Int): T {

@@ -4,7 +4,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface MovieRemoteApi {
-    @GET("#")
+    @GET("movie/popular")
     suspend fun fetchMovies():Response<MoviePageDto>
 
 }

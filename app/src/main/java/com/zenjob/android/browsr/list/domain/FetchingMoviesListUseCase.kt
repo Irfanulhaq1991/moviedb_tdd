@@ -7,7 +7,7 @@ class FetchingMoviesListUseCase(private val repository: MoviesRepository) {
     suspend fun fetchMoviesList(): Result<List<Movie>> {
         return repository.fetchMoviesList().fold({
             val pageNo = it.pageId
-                 /* save page number */
+                 /* save page number for paging later */
             Result.success(it.movies)
         }, {
             Result.failure(it)
