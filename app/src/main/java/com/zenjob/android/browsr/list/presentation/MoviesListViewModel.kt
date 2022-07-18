@@ -51,7 +51,7 @@ class MoviesListViewModel(private val fetchingMoviesListUseCase: FetchingMoviesL
     }
 
     fun userMessageShown() {
-        uiState.value!!.copy(errorMessage = "")
+        _uiState.value = uiState.value!!.copy(errorMessage = null)
     }
 
 }
