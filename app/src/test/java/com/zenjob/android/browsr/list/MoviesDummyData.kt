@@ -11,9 +11,9 @@ object MoviesDummyData {
         return Movies(
             1,
             listOf(
-                Movie(0, "", "", "https://image.tmdb.org/t/p/original", ""),
-                Movie(1, "c", "e", "https://image.tmdb.org/t/p/original", ""),
-                Movie(2, "d", "f", "https://image.tmdb.org/t/p/original", ""),
+                Movie(0, "", "", "https://image.tmdb.org/t/p/original", "",0f),
+                Movie(1, "c", "e", "https://image.tmdb.org/t/p/original", "",0f),
+                Movie(2, "d", "f", "https://image.tmdb.org/t/p/original", "",0f),
             )
         )
 

@@ -53,8 +53,10 @@ class ListActivity : AppCompatActivity(),
     override fun onChanged(state: MoviesListUiState) {
         binding.swiperefresh.isRefreshing = state.showLoading
         adaptor.setItems(state.moviesList)
-        if (state.errorMessage.isNotEmpty())
+        state.errorMessage?.let {
             Toast.makeText(this, state.errorMessage, Toast.LENGTH_SHORT).show()
+            viewModel.userMessageShown()
+        }
     }
 
     override fun getLayoutId(position: Int): Int {

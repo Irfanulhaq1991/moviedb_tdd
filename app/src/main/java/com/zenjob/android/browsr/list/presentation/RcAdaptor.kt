@@ -14,6 +14,7 @@ class RcAdaptor<T>(private val itemLayoutManger: ItemLayoutManger<T>) :
     }
 
     fun setItems(itemList: List<T>) {
+        if(this.itemList.containsAll(itemList)) return
         this.itemList.clear()
         this.itemList.addAll(itemList)
         notifyItemMoved(0,itemList.size-1)
