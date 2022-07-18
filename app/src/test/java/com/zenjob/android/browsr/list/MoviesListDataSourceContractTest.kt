@@ -2,14 +2,11 @@ package com.zenjob.android.browsr.list
 
 import com.google.common.truth.Truth.assertThat
 import com.zenjob.android.browsr.BaseTest
-import com.zenjob.android.browsr.list.MoviesDummyData.MoviesDtosList
+import com.zenjob.android.browsr.list.MoviesDummyData.provideMoviesDtosList
 import com.zenjob.android.browsr.list.data.IMoviesListDataSource
 import com.zenjob.android.browsr.list.data.MovieDto
-import com.zenjob.android.browsr.list.data.MovieRemoteApi
-import com.zenjob.android.browsr.list.data.RemoteMoviesListDataSource
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
-import retrofit2.Response
 import java.io.IOException
 
 
@@ -26,10 +23,10 @@ abstract class MoviesListDataSourceContractTest : BaseTest() {
 
     @Test
     fun returnMoviesDtoList() = runTest {
-        val dataSource = withData(MoviesDtosList())
+        val dataSource = withData(provideMoviesDtosList())
         val result = dataSource.fetchMoviesList()
         assertThat(result)
-            .isEqualTo(Result.success(MoviesDtosList()))
+            .isEqualTo(Result.success(provideMoviesDtosList()))
     }
 
 

@@ -2,13 +2,20 @@ package com.zenjob.android.browsr.list.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.zenjob.android.browsr.R
+import com.zenjob.android.browsr.list.di.movieListModule
+import com.zenjob.android.browsr.list.di.networkModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.startKoin
 
 
-class ListActivity : AppCompatActivity()//, MovieListAdapter.OnItemClickListener
+class ListActivity : AppCompatActivity(),Observer<MoviesListUiState>//, MovieListAdapter.OnItemClickListener
 {
-
+   val viewModel: MoviesListViewModel by viewModel()
 //    fun fetchMovies() {
 //
 //        val moshi = Moshi.Builder()
@@ -59,6 +66,16 @@ class ListActivity : AppCompatActivity()//, MovieListAdapter.OnItemClickListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
         val list: RecyclerView = findViewById(R.id.list)
+        startKoin {
+            // Koin Android logger
+            androidLogger()
+            //inject Android context
+            androidContext(this@ListActivity)
+            // use modules
+            modules(movieListModule,networkModule)
+        }
+
+        viewModel.uiState.observe(this,this)
 
        // list.adapter = mAdapter
 //
@@ -68,6 +85,10 @@ class ListActivity : AppCompatActivity()//, MovieListAdapter.OnItemClickListener
 //        refresh.setOnClickListener {
 //            fetchMovies()
 //        }
+    }
+
+    override fun onChanged(t: MoviesListUiState?) {
+        TODO("Not yet implemented")
     }
 
 //    override fun onMovieItemClick(

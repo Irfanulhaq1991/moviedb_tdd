@@ -3,7 +3,7 @@ package com.zenjob.android.browsr.list
 import com.google.common.truth.Truth.assertThat
 import com.zenjob.android.browsr.BaseTest
 import com.zenjob.android.browsr.CoroutineTestRule
-import com.zenjob.android.browsr.list.MoviesDummyData.MoviesDtosList
+import com.zenjob.android.browsr.list.MoviesDummyData.provideMoviesDtosList
 import com.zenjob.android.browsr.list.MoviesDummyData.provideDomainModelsList
 import com.zenjob.android.browsr.list.data.MoviesRepository
 import com.zenjob.android.browsr.list.data.RemoteMoviesListDataSource
@@ -44,7 +44,7 @@ class MoviesListRepositoryShould : BaseTest() {
 
     @Test
     fun returnDomainMovieList() = runTest{
-        coEvery { remoteMoviesListDataSource.fetchMoviesList() } answers { Result.success(MoviesDtosList())}
+        coEvery { remoteMoviesListDataSource.fetchMoviesList() } answers { Result.success(provideMoviesDtosList())}
         assertThat(repo.fetchMoviesList()).isEqualTo(Result.success(provideDomainModelsList()))
     }
 

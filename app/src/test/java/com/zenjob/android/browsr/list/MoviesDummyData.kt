@@ -13,7 +13,7 @@ object MoviesDummyData {
         )
     }
 
-    fun MoviesDtosList(): List<MovieDto> {
+    fun provideMoviesDtosList(): List<MovieDto> {
         return listOf(
             MovieDto(0, "", "", "", null, null, null),
             MovieDto(1, "a", "c", "e", null, null, null),

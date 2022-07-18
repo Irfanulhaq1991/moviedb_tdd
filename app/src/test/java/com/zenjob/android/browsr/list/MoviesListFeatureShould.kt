@@ -29,7 +29,7 @@ class MoviesListFeatureShould {
     private lateinit var  uiController: MovieListingSpyUiController
     private val moviesRemoteApi = object : MovieRemoteApi {
         override suspend fun fetchMovies(): Response<List<MovieDto>> {
-            return Response.success(MoviesDummyData.MoviesDtosList())
+            return Response.success(MoviesDummyData.provideMoviesDtosList())
         }
     }
 

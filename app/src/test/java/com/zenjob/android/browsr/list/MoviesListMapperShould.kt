@@ -10,7 +10,7 @@ class MoviesListMapperShould {
 
     @Test
     fun returnListOfSizeInput() = runTest{
-        val input = MoviesDummyData.MoviesDtosList()
+        val input = MoviesDummyData.provideMoviesDtosList()
         val mapper = MoviesListMapper()
         val output = mapper.map(input)
         assertThat(output.size).isEqualTo(input.size)
@@ -18,7 +18,7 @@ class MoviesListMapperShould {
 
     @Test
     fun returnListOfDomainModels() = runTest{
-        val input = MoviesDummyData.MoviesDtosList()
+        val input = MoviesDummyData.provideMoviesDtosList()
         val expected = MoviesDummyData.provideDomainModelsList()
         val mapper = MoviesListMapper()
         val output = mapper.map(input)
