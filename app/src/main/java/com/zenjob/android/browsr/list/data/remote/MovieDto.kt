@@ -1,4 +1,4 @@
-package com.zenjob.android.browsr.list.data
+package com.zenjob.android.browsr.list.data.remote
 
 import com.squareup.moshi.Json
 import java.io.Serializable

@@ -1,6 +1,9 @@
 package com.zenjob.android.browsr.list
 
-import com.zenjob.android.browsr.list.data.*
+import com.zenjob.android.browsr.list.data.remote.IMoviesListDataSource
+import com.zenjob.android.browsr.list.data.remote.MoviePageDto
+import com.zenjob.android.browsr.list.data.remote.MovieRemoteApi
+import com.zenjob.android.browsr.list.data.remote.RemoteMoviesListDataSource
 import retrofit2.Response
 
 class RemoteMoviesListDataSourceShould:MoviesListDataSourceContractTest() {

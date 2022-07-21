@@ -1,8 +1,8 @@
-package com.zenjob.android.browsr.list.data
+package com.zenjob.android.browsr.list.data.remote
 
 import java.io.IOException
 
-class RemoteMoviesListDataSource(private val moviesRemoteApi:MovieRemoteApi) :
+class RemoteMoviesListDataSource(private val moviesRemoteApi: MovieRemoteApi) :
     IMoviesListDataSource {
    override suspend fun fetchMoviesList():Result<MoviePageDto> {
         return try {

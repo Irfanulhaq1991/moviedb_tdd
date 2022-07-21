@@ -1,4 +1,4 @@
-package com.zenjob.android.browsr.list.data
+package com.zenjob.android.browsr.list.data.remote
 
 data class MoviePageDto(
     val page: Int,

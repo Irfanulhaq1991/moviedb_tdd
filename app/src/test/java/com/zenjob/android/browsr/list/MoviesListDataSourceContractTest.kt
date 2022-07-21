@@ -2,10 +2,9 @@ package com.zenjob.android.browsr.list
 
 import com.google.common.truth.Truth.assertThat
 import com.zenjob.android.browsr.BaseTest
-import com.zenjob.android.browsr.list.MoviesDummyData.provideMoviesDtosList
-import com.zenjob.android.browsr.list.data.IMoviesListDataSource
-import com.zenjob.android.browsr.list.data.MovieDto
-import com.zenjob.android.browsr.list.data.MoviePageDto
+import com.zenjob.android.browsr.MoviesDummyData.provideMoviesDtosList
+import com.zenjob.android.browsr.list.data.remote.IMoviesListDataSource
+import com.zenjob.android.browsr.list.data.remote.MoviePageDto
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import java.io.IOException
@@ -41,7 +40,7 @@ abstract class MoviesListDataSourceContractTest : BaseTest() {
 
     abstract fun withNoData(): IMoviesListDataSource
 
-    abstract fun withData(provideDtoList:MoviePageDto): IMoviesListDataSource
+    abstract fun withData(provideDtoList: MoviePageDto): IMoviesListDataSource
 
     abstract fun withError(throwable: Throwable): IMoviesListDataSource
 

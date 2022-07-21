@@ -1,6 +1,7 @@
 package com.zenjob.android.browsr.list
 
 import com.google.common.truth.Truth.assertThat
+import com.zenjob.android.browsr.MoviesDummyData
 import com.zenjob.android.browsr.list.domain.MoviesListMapper
 import kotlinx.coroutines.test.runTest
 import org.junit.Test

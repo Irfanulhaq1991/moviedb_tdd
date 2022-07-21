@@ -3,13 +3,12 @@ package com.zenjob.android.browsr.list
 import com.google.common.truth.Truth.assertThat
 import com.zenjob.android.browsr.BaseTest
 import com.zenjob.android.browsr.CoroutineTestRule
-import com.zenjob.android.browsr.list.MoviesDummyData.provideMoviesDtosList
-import com.zenjob.android.browsr.list.MoviesDummyData.provideDomainModelsList
-import com.zenjob.android.browsr.list.data.MoviePageDto
-import com.zenjob.android.browsr.list.data.MoviesRepository
-import com.zenjob.android.browsr.list.data.RemoteMoviesListDataSource
+import com.zenjob.android.browsr.MoviesDummyData.provideMoviesDtosList
+import com.zenjob.android.browsr.MoviesDummyData.provideDomainModelsList
+import com.zenjob.android.browsr.list.data.remote.MoviePageDto
+import com.zenjob.android.browsr.list.data.remote.MoviesRepository
+import com.zenjob.android.browsr.list.data.remote.RemoteMoviesListDataSource
 import com.zenjob.android.browsr.list.domain.MoviesListMapper
-import com.zenjob.android.browsr.list.domain.model.Movie
 import com.zenjob.android.browsr.list.domain.model.Movies
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -40,7 +39,9 @@ class MoviesListRepositoryShould : BaseTest() {
 
     @Test
     fun returnEmptyDomainMovieList() = runTest {
-        coEvery { remoteMoviesListDataSource.fetchMoviesList() } answers { Result.success(MoviePageDto(0, 0, 0, emptyList())) }
+        coEvery { remoteMoviesListDataSource.fetchMoviesList() } answers { Result.success(
+            MoviePageDto(0, 0, 0, emptyList())
+        ) }
         assertThat(repo.fetchMoviesList())
             .isEqualTo(Result.success(Movies(0,emptyList())))
     }

@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.irfan.sadaparcel.inventory.ItemLayoutManger
 import com.irfan.sadaparcel.inventory.RcAdaptor
-import com.squareup.picasso.Picasso
 import com.zenjob.android.browsr.R
 import com.zenjob.android.browsr.databinding.ActivityListBinding
 import com.zenjob.android.browsr.databinding.ViewholderMovieItemBinding
@@ -78,5 +78,5 @@ class ListActivity : AppCompatActivity(),
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, url: String) {
-    Picasso.get().load(url).into(view)
+    Glide.with(view).load(url).into(view)
 }

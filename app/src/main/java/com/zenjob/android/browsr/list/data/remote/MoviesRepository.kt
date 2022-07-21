@@ -1,7 +1,6 @@
-package com.zenjob.android.browsr.list.data
+package com.zenjob.android.browsr.list.data.remote
 
 import com.zenjob.android.browsr.common.Mapper
-import com.zenjob.android.browsr.list.domain.model.Movie
 import com.zenjob.android.browsr.list.domain.model.Movies
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

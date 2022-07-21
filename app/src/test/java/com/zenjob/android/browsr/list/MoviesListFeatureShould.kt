@@ -6,7 +6,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.google.common.truth.Truth.assertThat
 import com.zenjob.android.browsr.CoroutineTestRule
-import com.zenjob.android.browsr.list.data.*
+import com.zenjob.android.browsr.MoviesDummyData
+import com.zenjob.android.browsr.list.data.remote.MoviePageDto
+import com.zenjob.android.browsr.list.data.remote.MovieRemoteApi
+import com.zenjob.android.browsr.list.data.remote.MoviesRepository
+import com.zenjob.android.browsr.list.data.remote.RemoteMoviesListDataSource
 import com.zenjob.android.browsr.list.domain.FetchingMoviesListUseCase
 import com.zenjob.android.browsr.list.domain.MoviesListMapper
 import com.zenjob.android.browsr.list.presentation.MoviesListUiState
@@ -47,7 +51,8 @@ class MoviesListFeatureShould {
 
     @Test
     fun fetchMoviesList(){
-        val actual = listOf(MoviesListUiState(),MoviesListUiState(showLoading = true),MoviesListUiState(MoviesDummyData.provideDomainModelsList().movies))
+        val actual = listOf(MoviesListUiState(),MoviesListUiState(showLoading = true),MoviesListUiState(
+            MoviesDummyData.provideDomainModelsList().movies))
         uiController.fetchMoviesList()
         val result = uiController.uiStates
         assertThat(result).isEqualTo(actual)
